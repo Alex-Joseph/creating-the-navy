@@ -1,0 +1,35 @@
+DROP TABLE Fleet;
+DROP TABLE Ship;
+DROP TABLE Duty;
+DROP TABLE Sailor;
+
+CREATE TABLE Fleet(
+fleet_name VARCHAR(50) NOT NULL,
+id serial PRIMARY KEY
+);
+
+CREATE TABLE Ship(
+name VARCHAR(50) NOT NULL,
+id serial PRIMARY KEY,
+build_date DATE NOT NULL,
+fleet_ID INTEGER REFERENCES Fleet(id) ON DELETE CASCADE
+);
+
+CREATE TABLE Duty(
+name VARCHAR(50) NOT NULL,
+id INTEGER PRIMARY KEY,
+navy_rank VARCHAR(50) NOT NULL,
+sailor_id INTEGER NOT NULL REFERENCES Sailor(id) ON DELETE CASCADE,
+ship_id INTEGER NOT NULL REFERENCES Ship(id) ON DELETE CASCADE,
+Start_date DATE NOT NULL,
+End_date DATE NOT NULL
+);
+
+CREATE TABLE Sailor(
+name VARCHAR(50) NOT NULL,
+id serial PRIMARY KEY,
+date_of_birth DATE NOT NULL,
+ship_id INTEGER REFERENCES ship(id) ON DELETE CASCADE
+);
+
+insert into Fleet (fleet_name) VALUEs ('Yamaha');
